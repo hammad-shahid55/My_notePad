@@ -61,29 +61,30 @@ const Notes: React.FC = () => {
         <input
           type="text"
           placeholder="Take a note..."
-          className="w-full max-w-3xl px-4 py-2 rounded-md bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full max-w-3xl px-4 py-2 h-[calc(20vh-120px)] rounded-md bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
           onClick={openModal}
         />
       </div>
 
       {/* Left: Note Cards */}
-      <div className="flex gap-6 px-6 py-4 overflow-auto">
-        {filteredNotes.map((note, index) => (
-          <div
-            key={index}
-            className="bg-gray-700 p-4 rounded-lg w-64 cursor-pointer"
-            onClick={() => openPreview(note)}
-          >
-            <h4 className="text-xl text-white">{note.title}</h4>
-            <p className="text-sm text-gray-300">{note.content}</p>
+      <div className="flex gap-6 px-6 py-4 h-[calc(50vh-120px)] overflow-auto">
+        {filteredNotes.length > 0 ? (
+          filteredNotes.map((note, index) => (
+            <div
+              key={index}
+              className="bg-gray-700 p-4 rounded-lg w-64 cursor-pointer"
+              onClick={() => openPreview(note)}
+            >
+              <h4 className="text-xl text-white">{note.title}</h4>
+              <p className="text-sm text-gray-300">{note.content}</p>
+            </div>
+          ))
+        ) : (
+          <div className="flex items-center justify-center w-full h-full">
+            <p className="text-red-500 text-2xl font-bold">No Notes Found!~</p>
           </div>
-        ))}
+        )}
       </div>
-
-      {/* Main Content */}
-      <main className="flex flex-col items-center justify-center flex-1">
-        <p className="text-red-500 text-2xl font-bold">No Notes Found!~</p>
-      </main>
 
       {/* Modal for note input */}
       {isModalOpen && (
@@ -100,7 +101,7 @@ const Notes: React.FC = () => {
             <h3 className="text-lg text-white mb-4">Take a note...</h3>
             <textarea
               placeholder="Your note..."
-              className="w-full px-4 py-2 rounded-md bg-gray-700 text-white placeholder-gray-400 mb-4"
+              className="w-full px-4 py-4 rounded-md bg-gray-700 text-white placeholder-gray-400 mb-4"
               value={note}
               onChange={(e) => setNote(e.target.value)}
             />
